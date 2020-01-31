@@ -1,4 +1,3 @@
-% cat lib/random_description_generator.rb
 require 'yaml'
 
 #Allows specifying multiple files or a single file.
