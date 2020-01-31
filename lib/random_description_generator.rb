@@ -1,9 +1,11 @@
 require 'yaml'
+require 'random_description_generator/version.rb'
 
 #Allows specifying multiple files or a single file.
 #Limitation: all options must have the same number, i.e. 10 options per file.
 
 class RandomDescriptionGenerator
+  attr_reader :complete_description, :number_of_files
 
     @number_of_files #How many files do you need read to compile the data?
     @complete_description #Stringing together all the info.
@@ -25,7 +27,7 @@ class RandomDescriptionGenerator
   def call_files_to_load(array_of_file_pathnames)
     @file_path_names = array_of_file_pathnames 
     track_file_load = 0
-    if number_of_files > 1
+    if @number_of_files > 1
         loop do
             load_file(@file_path_names[track_file_load])
             track_file_load += 1
@@ -33,14 +35,14 @@ class RandomDescriptionGenerator
                 break
             end
         end
-    elsif number_of_files == 0
+    elsif @number_of_files == 0
         puts "No files provided."
-    elsif number_of_files == 1
+    elsif @number_of_files == 1
         load_file(array_of_file_pathnames[track_file_load])
     end  
   end
 
-  def generate_description_from_multiple_files
+  def generate_description_from_multiple_files()
     count_files = 0
     loop do
         temp_random_number = rand(@max_choices_per_option)
@@ -53,7 +55,7 @@ class RandomDescriptionGenerator
     end
   end
 
-  def generate_description_from_single_file
+  def generate_description_from_single_file()
     count_options = 0
     loop do
         temp_random_number = rand(@max_choices_per_option)
